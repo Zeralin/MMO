@@ -1,0 +1,4 @@
+name: ZeralinMMO
+main: com.zeralin.mmo.Main
+version: 1.0
+commands:
