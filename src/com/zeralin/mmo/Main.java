@@ -10,8 +10,7 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
-
-import com.connorlinfoot.bountifulapi.BountifulAPI;
+import org.inventivetalent.bossbar.BossBarAPI;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -32,8 +31,8 @@ public class Main extends JavaPlugin implements Listener{
  			@Override
  			public void run() {
  				for (Player player : Bukkit.getOnlinePlayers()){
- 				BountifulAPI.sendActionBar(player, 
- 				 ChatColor.WHITE + "HP " + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
+ 				BossBarAPI.setMessage(player, 
+ 				 ChatColor.LIGHT_PURPLE + "HP " + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
  			   }
  			}
  	    }, 1L, 1L);

@@ -14,8 +14,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-
-import com.connorlinfoot.bountifulapi.BountifulAPI;
+import org.inventivetalent.bossbar.BossBarAPI;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -111,8 +110,9 @@ public class HealthMechanics implements Listener, CommandExecutor{
     	 Bukkit.getScheduler().scheduleSyncRepeatingTask(main.getPlugin(), new Runnable(){
  			@Override
  			public void run() {
- 				BountifulAPI.sendActionBar(e.getPlayer(), 
- 				 ChatColor.WHITE + "HP " + (int) e.getPlayer().getHealth() + "/" + (int) e.getPlayer().getMaxHealth());
+ 				Player player = e.getPlayer();
+ 				BossBarAPI.setMessage(player, 
+ 		 				 ChatColor.LIGHT_PURPLE + "HP " + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
  			}
  	    }, 1L, 1L);
     }
