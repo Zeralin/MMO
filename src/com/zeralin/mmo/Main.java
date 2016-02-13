@@ -1,16 +1,24 @@
 package com.zeralin.mmo;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
+
+import com.connorlinfoot.bountifulapi.BountifulAPI;
+
+import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin implements Listener{
 
 	public Plugin plugin;
 	HealthMechanics healthMechanics;
-	CombatMechanics combatMechanics;
 	
 	@Override
 	public void onEnable(){
@@ -18,8 +26,17 @@ public class Main extends JavaPlugin implements Listener{
 		setupListeners();
 		setupCommands();
 	    setupClassReference();
+	    setupScoreboard();
 	    
-	    healthMechanics.regenHealth();
+	    Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable(){
+ 			@Override
+ 			public void run() {
+ 				for (Player player : Bukkit.getOnlinePlayers()){
+ 				BountifulAPI.sendActionBar(player, 
+ 				 ChatColor.WHITE + "HP " + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
+ 			   }
+ 			}
+ 	    }, 1L, 1L);
 	}
 
 	@Override
@@ -34,6 +51,25 @@ public class Main extends JavaPlugin implements Listener{
 		pm.registerEvents(new ItemMechanics(this), this);
 		pm.registerEvents(new HealthMechanics(this), this);
 		pm.registerEvents(new MobMechanics(this), this);
+		pm.registerEvents(new InventoryMechanics(this), this);
+		pm.registerEvents(new CombatMechanics(this), this);
+	}
+	
+	public void setupScoreboard(){
+		ScoreboardManager manager = Bukkit.getScoreboardManager();
+		Scoreboard board = manager.getNewScoreboard();
+		Objective obj = board.registerNewObjective("HP", "Health");
+		obj.setDisplayName("HP");
+		obj.setDisplaySlot(DisplaySlot.BELOW_NAME);
+		for (Player player : Bukkit.getOnlinePlayers()){
+		    Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new Runnable(){
+				@Override
+				public void run() {
+					player.setScoreboard(board);
+					player.setHealth(player.getHealth());
+				}	
+		    }, 1L, 1L);
+		}
 	}
 	
 	public void setupCommands(){
@@ -42,7 +78,6 @@ public class Main extends JavaPlugin implements Listener{
 	
 	public void setupClassReference(){
 		healthMechanics = new HealthMechanics(this);
-		combatMechanics = new CombatMechanics(this);
 	}
 	
 	public Plugin getPlugin(){
