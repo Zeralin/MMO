@@ -1,5 +1,6 @@
 package com.zeralin.mmo;
 
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -27,6 +28,9 @@ public class PlayerMechanics implements Listener{
 			e.getPlayer().setHealth(100D);
 			e.getPlayer().setHealthScale(20D);
 		    e.getPlayer().setHealthScaled(true);
+		    
+		    Location spawn = new Location(e.getPlayer().getWorld(), -601, 68, 882);
+		    e.getPlayer().teleport(spawn);
 		}
 	}
 	
@@ -36,6 +40,9 @@ public class PlayerMechanics implements Listener{
 		e.getPlayer().setHealth(100D);
 		e.getPlayer().setHealthScale(20D);
 	    e.getPlayer().setHealthScaled(true);
+	    
+	    Location spawn = new Location(e.getPlayer().getWorld(), -601, 68, 882);
+	    e.getPlayer().teleport(spawn);
 	}
 	
 	@EventHandler
