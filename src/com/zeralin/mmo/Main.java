@@ -34,7 +34,7 @@ public class Main extends JavaPlugin implements Listener{
  			public void run() {
  				for (Player player : Bukkit.getOnlinePlayers()){
  				BossBarAPI.setMessage(player, 
- 						ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "HP " + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
+ 						ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "HP " + ChatColor.LIGHT_PURPLE + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
  			   }
  			}
  	    }, 1L, 1L);
@@ -59,6 +59,7 @@ public class Main extends JavaPlugin implements Listener{
 		pm.registerEvents(new MobMechanics(this), this);
 		pm.registerEvents(new InventoryMechanics(this), this);
 		pm.registerEvents(new CombatMechanics(this), this);
+		pm.registerEvents(new BlockMechanics(this), this);
 	}
 	
 	public void setupScoreboard(){
@@ -68,8 +69,8 @@ public class Main extends JavaPlugin implements Listener{
 		obj.setDisplayName("HP");
 		obj.setDisplaySlot(DisplaySlot.BELOW_NAME);
 		for (Player player : Bukkit.getOnlinePlayers()){
+			        player.setHealth(player.getHealth());
 					player.setScoreboard(board);
-					player.setHealth(player.getHealth());
 		}
 	}
 	

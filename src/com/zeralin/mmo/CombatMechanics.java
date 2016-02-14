@@ -100,6 +100,11 @@ public class CombatMechanics implements Listener{
 						player.sendMessage(ChatColor.RED + "" + dmg + " -> " + mob.getCustomName() + 
 								ChatColor.WHITE + " [" + ChatColor.GREEN + "0" + ChatColor.WHITE + "]");
 					}
+				
+				int health = (int) mob.getHealth() - dmg;
+				
+				mob.sendMessage(ChatColor.RED + "" + dmg + " -> " + ChatColor.WHITE + "[" + 
+		                ChatColor.GREEN + health + ChatColor.WHITE + "]");
 			}
 		}
 	}
