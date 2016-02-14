@@ -1,7 +1,6 @@
 package com.zeralin.mmo;
 
 import org.bukkit.entity.Creature;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -50,7 +49,7 @@ public class CombatMechanics implements Listener{
 	
 	@EventHandler
 	public void onDamageTake(EntityDamageByEntityEvent e){
-		if (e.getEntity() instanceof Player && e.getDamager() instanceof Entity){
+		if (e.getEntity() instanceof Player && !(e.getDamager() instanceof Player)){
 			Player player = (Player) e.getEntity();
 			Creature mob = (Creature) e.getDamager();
 			

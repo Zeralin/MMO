@@ -20,6 +20,8 @@ public class PlayerMechanics implements Listener{
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e){
 		
+		main.setupScoreboard();
+		
 		if (e.getPlayer().hasPlayedBefore()){
 			e.getPlayer().setHealthScale(20D);
 		    e.getPlayer().setHealthScaled(true);

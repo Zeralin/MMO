@@ -34,7 +34,7 @@ public class Main extends JavaPlugin implements Listener{
  			public void run() {
  				for (Player player : Bukkit.getOnlinePlayers()){
  				BossBarAPI.setMessage(player, 
- 				 ChatColor.LIGHT_PURPLE + "HP " + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
+ 						ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "HP " + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
  			   }
  			}
  	    }, 1L, 1L);
@@ -64,17 +64,12 @@ public class Main extends JavaPlugin implements Listener{
 	public void setupScoreboard(){
 		ScoreboardManager manager = Bukkit.getScoreboardManager();
 		Scoreboard board = manager.getNewScoreboard();
-		Objective obj = board.registerNewObjective("HP", "Health");
+		Objective obj = board.registerNewObjective("showhp", "health");
 		obj.setDisplayName("HP");
 		obj.setDisplaySlot(DisplaySlot.BELOW_NAME);
 		for (Player player : Bukkit.getOnlinePlayers()){
-		    Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(getPlugin(), new Runnable(){
-				@Override
-				public void run() {
 					player.setScoreboard(board);
 					player.setHealth(player.getHealth());
-				}	
-		    }, 1L, 1L);
 		}
 	}
 	

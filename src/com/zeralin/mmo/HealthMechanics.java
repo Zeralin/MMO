@@ -112,7 +112,7 @@ public class HealthMechanics implements Listener, CommandExecutor{
  			public void run() {
  				Player player = e.getPlayer();
  				BossBarAPI.setMessage(player, 
- 		 				 ChatColor.LIGHT_PURPLE + "HP " + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
+ 		 				 ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "HP " + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
  			}
  	    }, 1L, 1L);
     }
