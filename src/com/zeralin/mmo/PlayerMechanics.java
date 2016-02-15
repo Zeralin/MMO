@@ -25,6 +25,7 @@ public class PlayerMechanics implements Listener{
 		} else {
 			e.getPlayer().setMaxHealth(100D);
 			e.getPlayer().setHealth(100D);
+			e.getPlayer().setLevel(100);
 			e.getPlayer().setHealthScale(20D);
 		    e.getPlayer().setHealthScaled(true);
 		}
@@ -34,6 +35,7 @@ public class PlayerMechanics implements Listener{
 	public void onRespawn(PlayerRespawnEvent e){
 		e.getPlayer().setMaxHealth(100D);
 		e.getPlayer().setHealth(100D);
+		e.getPlayer().setLevel(100);
 		e.getPlayer().setHealthScale(20D);
 	    e.getPlayer().setHealthScaled(true);
 	}

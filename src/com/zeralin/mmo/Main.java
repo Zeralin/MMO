@@ -12,7 +12,6 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
-import org.inventivetalent.bossbar.BossBarAPI;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -28,16 +27,6 @@ public class Main extends JavaPlugin implements Listener{
 		setupCommands();
 	    setupClassReference();
 	    setupScoreboard();
-	    
-	    Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable(){
- 			@Override
- 			public void run() {
- 				for (Player player : Bukkit.getOnlinePlayers()){
- 				BossBarAPI.setMessage(player, 
- 						ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "HP " + ChatColor.LIGHT_PURPLE + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
- 			   }
- 			}
- 	    }, 1L, 1L);
 	}
 
 	@EventHandler

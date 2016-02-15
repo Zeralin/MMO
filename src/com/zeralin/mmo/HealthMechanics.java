@@ -9,12 +9,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.inventivetalent.bossbar.BossBarAPI;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -24,6 +24,22 @@ public class HealthMechanics implements Listener, CommandExecutor{
 	
 	public HealthMechanics(Main plugin){
 		main = plugin;
+	}
+	
+	@EventHandler
+	public void onHPDrop(EntityDamageByEntityEvent e){
+		if (e.getEntity() instanceof Player){
+			Player player = (Player) e.getEntity();
+			player.setLevel((int) player.getHealth() - (int) e.getDamage());
+		}
+	}
+	
+	@EventHandler
+	public void onHPDrop(EntityDamageEvent e){
+		if (e.getEntity() instanceof Player){
+			Player player = (Player) e.getEntity();
+			player.setLevel((int) player.getHealth() - (int) e.getDamage());
+		}
 	}
 	
 	public int getHPFromLore(ItemStack item, String value){
@@ -87,6 +103,7 @@ public class HealthMechanics implements Listener, CommandExecutor{
 			        		if (!(hp < 1)){
 				        		player.setMaxHealth(hp);
 				        		player.setHealth(hp);
+				        		player.setLevel(hp);
 				        		player.sendMessage(ChatColor.WHITE + "Your health has been set to " + 
 				        		     ChatColor.GREEN + hp + ChatColor.WHITE + "!");
 			        		} else {
@@ -105,17 +122,6 @@ public class HealthMechanics implements Listener, CommandExecutor{
 	  }
 		return true;
 	}
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e){
-    	 Bukkit.getScheduler().scheduleSyncRepeatingTask(main.getPlugin(), new Runnable(){
- 			@Override
- 			public void run() {
- 				Player player = e.getPlayer();
- 				BossBarAPI.setMessage(player, 
- 		 				 ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "HP " + ChatColor.LIGHT_PURPLE + (int) player.getHealth() + "/" + (int) player.getMaxHealth());
- 			}
- 	    }, 1L, 1L);
-    }
 	
 	
 	@EventHandler
@@ -125,6 +131,7 @@ public class HealthMechanics implements Listener, CommandExecutor{
 				int HPs = (int) player.getMaxHealth() / 20;
 			    e.setAmount(HPs);
 			    player.sendMessage(ChatColor.GREEN + "+" + HPs + " HP");
+			    player.setLevel((int) player.getHealth() + (int) e.getAmount());
 			}
 	}
 	
