@@ -1,7 +1,9 @@
 package com.zeralin.mmo;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -28,6 +30,13 @@ public class PlayerMechanics implements Listener{
 			e.getPlayer().setLevel(100);
 			e.getPlayer().setHealthScale(20D);
 		    e.getPlayer().setHealthScaled(true);
+		}
+	}
+	
+	@EventHandler
+	public void onEntityRegen(EntityRegainHealthEvent e){
+		if (e.getEntity() instanceof Player){
+			e.setCancelled(true);
 		}
 	}
 	
