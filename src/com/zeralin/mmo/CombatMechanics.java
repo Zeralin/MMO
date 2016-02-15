@@ -110,7 +110,6 @@ public class CombatMechanics implements Listener{
 					mob.sendMessage(ChatColor.RED + "" + dmg + " -> " + ChatColor.WHITE + "[" + 
 			                ChatColor.GREEN + "0" + ChatColor.WHITE + "]");
 				}
-
 			}
 		}
 	}
@@ -162,6 +161,16 @@ public class CombatMechanics implements Listener{
 				
 				player.sendMessage(ChatColor.RED + "" + dmg + " -> " + ent.getName() + 
 						ChatColor.WHITE + " [" + ChatColor.GREEN + "0" + ChatColor.WHITE + "]");
+			}
+			
+			int health = (int) ent.getHealth() - dmg;
+			
+			if (health >= 1){
+				ent.sendMessage(ChatColor.RED + "" + dmg + " -> " + ChatColor.WHITE + "[" + 
+		                ChatColor.GREEN + health + ChatColor.WHITE + "]");
+			} else {
+				ent.sendMessage(ChatColor.RED + "" + dmg + " -> " + ChatColor.WHITE + "[" + 
+		                ChatColor.GREEN + "0" + ChatColor.WHITE + "]");
 			}
 		}
 		

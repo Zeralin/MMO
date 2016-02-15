@@ -131,8 +131,17 @@ public class HealthMechanics implements Listener, CommandExecutor{
 				int HPs = (int) player.getMaxHealth() / 20;
 			    e.setAmount(HPs);
 			    player.sendMessage(ChatColor.GREEN + "+" + HPs + " HP");
+			    
+			    if (player.isDead()){
+			    	player.setHealth(0);
+			    }
+			    
+			    if (player.getLevel() + e.getAmount() >= player.getMaxHealth()) {
+			    	player.setLevel((int) player.getMaxHealth());
+			    } else {
 			    player.setLevel((int) player.getHealth() + (int) e.getAmount());
 			}
+		}
 	}
 	
 }
