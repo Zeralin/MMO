@@ -103,7 +103,7 @@ public class CombatMechanics implements Listener{
 			
 			if (e.getDamage() == 0){
 				return;
-			} else {
+			} else { 
 				
 				int dmg = (int) e.getDamage();
 				int hp = (int) player.getHealth() - dmg;
@@ -122,7 +122,7 @@ public class CombatMechanics implements Listener{
 						player.sendMessage(ChatColor.RED + "" + dmg + " -> " + mob.getCustomName() + 
 								ChatColor.WHITE + " [" + ChatColor.GREEN + "0" + ChatColor.WHITE + "]");
 					}
-			}
+		  } 
 		} else if (e.getEntity() instanceof Player && e.getDamager() instanceof Player){
 			Player player = (Player) e.getEntity();
 			Player mob = (Player) e.getDamager();
