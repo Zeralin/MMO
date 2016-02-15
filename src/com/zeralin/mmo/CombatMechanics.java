@@ -35,19 +35,24 @@ public class CombatMechanics implements Listener{
 			Player player = (Player) e.getEntity();
 			if (tag.contains(player.getName())){
 				tag.remove(player.getName());
+				player.sendMessage("removed");
 				tag.add(player.getName());
+				player.sendMessage("added");
 				Bukkit.getServer().getScheduler().runTaskLater(main.getPlugin(), new Runnable(){
 					@Override
 					public void run() {
 						tag.remove(player.getName());
+						player.sendMessage("removed");
 					}
 				}, 20L * 10);
 			} else {
 				tag.add(player.getName());
+				player.sendMessage("added");
 				Bukkit.getServer().getScheduler().runTaskLater(main.getPlugin(), new Runnable(){
 					@Override
 					public void run() {
 						tag.remove(player.getName());
+						player.sendMessage("removed");
 					}
 				}, 20L * 10);
 			}

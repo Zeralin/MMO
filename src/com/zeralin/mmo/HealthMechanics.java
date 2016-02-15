@@ -125,9 +125,9 @@ public class HealthMechanics implements Listener, CommandExecutor{
     public void regenHP(){
     	 for (Player player : Bukkit.getOnlinePlayers()){
     	Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(main.getPlugin(), new Runnable(){
-			@Override
+    		@Override
 			public void run() {
-			  if (main.combatMechanics.tag.contains(player.getName())){} else {
+  			  if (!main.combatMechanics.tag.contains(player.getName())){
 			  int amount = (int) player.getMaxHealth() / 20;
               if (player.isDead()){}
               
