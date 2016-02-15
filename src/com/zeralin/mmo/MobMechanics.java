@@ -41,6 +41,8 @@ public class MobMechanics implements Listener{
 				   ItemMeta plateMeta = plate.getItemMeta();
 				   plateMeta.setDisplayName(ChatColor.WHITE + "Ripped Shirt");
 				   plateMeta.setLore(Arrays.asList(ChatColor.WHITE + "Health: " + hp));
+				   plate.setItemMeta(plateMeta);
+				   e.getDrops().add(plate);
 			}
 		}
 	}
