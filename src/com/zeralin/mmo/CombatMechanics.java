@@ -103,8 +103,14 @@ public class CombatMechanics implements Listener{
 				
 				int health = (int) mob.getHealth() - dmg;
 				
-				mob.sendMessage(ChatColor.RED + "" + dmg + " -> " + ChatColor.WHITE + "[" + 
-		                ChatColor.GREEN + health + ChatColor.WHITE + "]");
+				if (health >= 1){
+					mob.sendMessage(ChatColor.RED + "" + dmg + " -> " + ChatColor.WHITE + "[" + 
+			                ChatColor.GREEN + health + ChatColor.WHITE + "]");
+				} else {
+					mob.sendMessage(ChatColor.RED + "" + dmg + " -> " + ChatColor.WHITE + "[" + 
+			                ChatColor.GREEN + "0" + ChatColor.WHITE + "]");
+				}
+
 			}
 		}
 	}
