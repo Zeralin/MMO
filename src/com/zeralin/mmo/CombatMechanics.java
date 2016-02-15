@@ -1,5 +1,9 @@
 package com.zeralin.mmo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,9 +22,40 @@ public class CombatMechanics implements Listener{
 		main = plugin;
 	}
 	
+	public List<String> tag = new ArrayList<String>();
+	
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e){
 		e.setDeathMessage(null);
+	}
+	
+	@EventHandler
+	public void onCombatTag(EntityDamageByEntityEvent e){
+		if (e.getEntity() instanceof Player){
+			Player player = (Player) e.getEntity();
+			if (tag.contains(player.getName())){
+				tag.remove(player.getName());
+				tag.add(player.getName());
+				Bukkit.getServer().getScheduler().runTaskLater(main.getPlugin(), new Runnable(){
+					@Override
+					public void run() {
+						tag.remove(player.getName());
+					}
+				}, 20L * 10);
+			} else {
+				tag.add(player.getName());
+				Bukkit.getServer().getScheduler().runTaskLater(main.getPlugin(), new Runnable(){
+					@Override
+					public void run() {
+						tag.remove(player.getName());
+					}
+				}, 20L * 10);
+			}
+			
+		    } else if (e.getDamager() instanceof Player && e.getEntity() instanceof Player){
+				Player player = (Player) e.getDamager();
+				tag.add(player.getName());
+		}
 	}
 	
 	@EventHandler

@@ -18,6 +18,7 @@ import net.md_5.bungee.api.ChatColor;
 public class Main extends JavaPlugin implements Listener{
 
 	public Plugin plugin;
+	CombatMechanics combatMechanics;
 	HealthMechanics healthMechanics;
 	
 	@Override
@@ -27,6 +28,8 @@ public class Main extends JavaPlugin implements Listener{
 		setupCommands();
 	    setupClassReference();
 	    setupScoreboard();
+	    
+	    healthMechanics.regenHP();
 	}
 
 	@EventHandler
@@ -69,6 +72,7 @@ public class Main extends JavaPlugin implements Listener{
 	
 	public void setupClassReference(){
 		healthMechanics = new HealthMechanics(this);
+		combatMechanics = new CombatMechanics(this);
 	}
 	
 	public Plugin getPlugin(){

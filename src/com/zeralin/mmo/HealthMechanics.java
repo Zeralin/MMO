@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -123,25 +122,26 @@ public class HealthMechanics implements Listener, CommandExecutor{
 		return true;
 	}
 	
-	
-	@EventHandler
-	public void onRegen(EntityRegainHealthEvent e){
-		if (e.getEntity() instanceof Player){
-			Player player = (Player) e.getEntity();
-				int HPs = (int) player.getMaxHealth() / 20;
-			    e.setAmount(HPs);
-			    player.sendMessage(ChatColor.GREEN + "+" + HPs + " HP");
-			    
-			    if (player.isDead()){
-			    	player.setHealth(0);
-			    }
-			    
-			    if (player.getLevel() + e.getAmount() >= player.getMaxHealth()) {
-			    	player.setLevel((int) player.getMaxHealth());
-			    } else {
-			    player.setLevel((int) player.getHealth() + (int) e.getAmount());
-			}
-		}
-	}
+    public void regenHP(){
+    	 for (Player player : Bukkit.getOnlinePlayers()){
+    	Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(main.getPlugin(), new Runnable(){
+			@Override
+			public void run() {
+			  if (main.combatMechanics.tag.contains(player.getName())){} else {
+			  int amount = (int) player.getMaxHealth() / 20;
+              if (player.isDead()){}
+              
+              if (player.getHealth() + amount >= player.getMaxHealth()){
+            	  player.setHealth(player.getMaxHealth());
+            	  player.setLevel((int) player.getMaxHealth());
+              } else if (player.getHealth() + amount < player.getMaxHealth()){
+            	  player.setHealth(player.getHealth() + amount);
+            	  player.setLevel((int) player.getHealth() + amount);
+                }
+			   } 
+		     }
+    	   }, 1L, 20L * 5);
+    	 }
+    }
 	
 }
