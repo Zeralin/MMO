@@ -126,21 +126,20 @@ public class HealthMechanics implements Listener, CommandExecutor{
     	 for (Player player : Bukkit.getOnlinePlayers()){
     	Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(main.getPlugin(), new Runnable(){
     		@Override
-			public void run() {
-  			  if (!main.combatMechanics.tag.contains(player.getName())){
+			public void run(){
 			  int amount = (int) player.getMaxHealth() / 20;
-              if (player.isDead()){}
+              if (player.isDead()){ } else {
               
-              if (player.getHealth() + amount >= player.getMaxHealth()){
+              if (player.getLevel() + amount >= player.getMaxHealth()){
             	  player.setHealth(player.getMaxHealth());
             	  player.setLevel((int) player.getMaxHealth());
-              } else if (player.getHealth() + amount < player.getMaxHealth()){
+              } else if (player.getLevel() + amount < player.getMaxHealth()){
             	  player.setHealth(player.getHealth() + amount);
             	  player.setLevel((int) player.getHealth() + amount);
                 }
-			   } 
-		     }
-    	   }, 1L, 20L * 5);
+    		  }
+    		}
+    	   }, 1L, 20L * 3);
     	 }
     }
 	

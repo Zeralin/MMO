@@ -2,3 +2,5 @@ name: ZeralinMMO
 main: com.zeralin.mmo.Main
 version: 1.0
 commands:
+    setHealth:
+        description: Sets the users health.

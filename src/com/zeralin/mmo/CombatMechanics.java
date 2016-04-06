@@ -1,16 +1,12 @@
 package com.zeralin.mmo;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Creature;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import net.md_5.bungee.api.ChatColor;
@@ -23,57 +19,14 @@ public class CombatMechanics implements Listener{
 		main = plugin;
 	}
 	
-	public List<String> tag = new ArrayList<String>();
-	
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e){
 		e.setDeathMessage(null);
 	}
 	
 	@EventHandler
-	public void onCombatTag(EntityDamageByEntityEvent e){
-		if (e.getEntity() instanceof Player && e.getDamager() instanceof Entity){
-			Player player = (Player) e.getEntity();
-			if (tag.contains(player.getName())){
-				tag.remove(player.getName());
-				tag.add(player.getName());
-				Bukkit.getServer().getScheduler().runTaskLater(main.getPlugin(), new Runnable(){
-					@Override
-					public void run() {
-						tag.remove(player.getName());
-					}
-				}, 20L * 10);
-			  }
-			} else if (e.getEntity() instanceof Entity && e.getDamager() instanceof Player){
-				Player player = (Player) e.getDamager();
-				tag.add(player.getName());
-				Bukkit.getServer().getScheduler().runTaskLater(main.getPlugin(), new Runnable(){
-					@Override
-					public void run() {
-						tag.remove(player.getName());
-					}
-				}, 20L * 10);
-			} else if (e.getDamager() instanceof Player && e.getEntity() instanceof Player){
-				Player ent = (Player) e.getEntity();
-				Player damager = (Player) e.getDamager();
-				if (tag.contains(damager.getName())){
-					tag.remove(damager.getName());
-					tag.add(damager.getName());
-					tag.add(ent.getName());
-					Bukkit.getServer().getScheduler().runTaskLater(main.getPlugin(), new Runnable(){
-						@Override
-						public void run() {
-							tag.remove(damager.getName());
-							tag.remove(ent.getName());
-						}
-					}, 20L * 10);
-		           }
-			  }
-			}
-	
-	@EventHandler
 	public void onWorldDamage(EntityDamageEvent e){
-		if (e.getEntity() instanceof Player) {
+		if (e.getEntity() instanceof Player && e.getCause() != DamageCause.ENTITY_ATTACK) {
 			Player player = (Player) e.getEntity();
 			if (e.getDamage() <= 0) {
 				return;
@@ -147,17 +100,7 @@ public class CombatMechanics implements Listener{
 					} else {
 						player.sendMessage(ChatColor.RED + "" + dmg + " -> " + mob.getCustomName() + 
 								ChatColor.WHITE + " [" + ChatColor.GREEN + "0" + ChatColor.WHITE + "]");
-					}
-				
-				int health = (int) mob.getHealth() - dmg;
-				
-				if (health >= 1){
-					mob.sendMessage(ChatColor.RED + "" + dmg + " -> " + ChatColor.WHITE + "[" + 
-			                ChatColor.GREEN + health + ChatColor.WHITE + "]");
-				} else {
-					mob.sendMessage(ChatColor.RED + "" + dmg + " -> " + ChatColor.WHITE + "[" + 
-			                ChatColor.GREEN + "0" + ChatColor.WHITE + "]");
-				}
+					}				
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package com.zeralin.mmo;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,7 +28,12 @@ public class PlayerMechanics implements Listener{
 		} else {
 			e.getPlayer().setMaxHealth(100D);
 			e.getPlayer().setHealth(100D);
-			e.getPlayer().setLevel(100);
+			Bukkit.getScheduler().runTaskLater(main.getPlugin(), new Runnable(){
+				@Override
+				public void run() {
+					e.getPlayer().setLevel(100);
+				}
+			}, 1L);
 			e.getPlayer().setHealthScale(20D);
 		    e.getPlayer().setHealthScaled(true);
 		}
@@ -44,9 +50,15 @@ public class PlayerMechanics implements Listener{
 	public void onRespawn(PlayerRespawnEvent e){
 		e.getPlayer().setMaxHealth(100D);
 		e.getPlayer().setHealth(100D);
-		e.getPlayer().setLevel(100);
+		Bukkit.getScheduler().runTaskLater(main.getPlugin(), new Runnable(){
+			@Override
+			public void run() {
+				e.getPlayer().setLevel(100);
+			}
+		}, 1L);
 		e.getPlayer().setHealthScale(20D);
 	    e.getPlayer().setHealthScaled(true);
+	    main.healthMechanics.regenHP();
 	}
 	
 	@EventHandler

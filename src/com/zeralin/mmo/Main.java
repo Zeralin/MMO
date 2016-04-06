@@ -52,6 +52,7 @@ public class Main extends JavaPlugin implements Listener{
 		pm.registerEvents(new InventoryMechanics(this), this);
 		pm.registerEvents(new CombatMechanics(this), this);
 		pm.registerEvents(new BlockMechanics(this), this);
+		pm.registerEvents(new ChatMechanics(this), this);
 	}
 	
 	public void setupScoreboard(){
@@ -67,7 +68,7 @@ public class Main extends JavaPlugin implements Listener{
 	}
 	
 	public void setupCommands(){
-		
+		getCommand("setHealth").setExecutor(new HealthMechanics(this));
 	}
 	
 	public void setupClassReference(){
